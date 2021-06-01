@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Product with min price</title>
+</head>
+<body>
+<div align="center">
+    <h1>List of products with min price</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Min Price</th>
+            <th>Product ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${listProductsMinPrice}">
+            <td th:text="${product.title}">Title</td>
+            <td th:text="${product.price}">Min Price</td>
+            <td th:text="${product.id}">Product ID</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+<body>
