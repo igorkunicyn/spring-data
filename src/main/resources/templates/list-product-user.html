@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Перечень товаров</title>
+</head>
+<body>
+<div align="center">
+    <h1>Список товаров</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Название товара</th>
+            <th>Цена товара за 1 кг</th>
+            <th>Корзина</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${listProducts}">
+            <td th:text="${product.title}">Название товара</td>
+            <td th:text="${product.price}">Цена товара</td>
+            <td>
+                <a th:href="@{'/cart/add/' + ${product.id}}">Добавить товар</a>
+                &nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        Total Items: [[${totalItems}]]
+        <a th:if="${currentPage > 1}" th:href="@{'/product/page/1'}">First</a>
+        <span th:unless="${currentPage > 1}">First</span>
+        <a th:if="${currentPage > 1}" th:href="@{'/product/page/' + ${currentPage - 1}}">Previous</a>
+        <span th:unless="${currentPage > 1}">Previous</span>
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:if="${currentPage != i}" th:href="@{'/product/page/' + ${i}}">[[${i}]]</a>
+        <span th:unless="${currentPage != i}">[[${i}]]</span>
+        &nbsp;
+    </span>
+        <a th:if="${currentPage < totalPages}" th:href="@{'/product/page/' + ${currentPage + 1}}">Next</a>
+        <span th:unless="currentPage < totalPages">Next</span>
+        <a th:if="${currentPage < totalPages}" th:href="@{'/product/page/' + ${totalPages}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+    </div>
+    <br></br>
+    <span>
+       <a th:href="@{'/viewCart'}">Посмотреть корзину</a>
+    </span>
+</div>
+</body>
+</html>

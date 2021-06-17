@@ -30,7 +30,7 @@ public class UserController {
         uiModel.addAttribute("totalPages", userPage.getTotalPages());
         uiModel.addAttribute("totalItems", userPage.getTotalElements());
         uiModel.addAttribute("listUsers", userList);
-        return "user-list";
+        return "user/user-list";
     }
 
 }
