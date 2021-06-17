@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>User Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>User List</h1>
+
+    <!--Проверяем авторизацию пользователя-->
+    <div sec:authorize="isAuthenticated()">
+        Authenticated username:
+        <div sec:authentication="principal.username"></div>
+        Authenticated user roles:
+        <div sec:authentication="principal.authorities"></div>
+
+        This content will only be visible to ADMIN and SUPERADMIN users.
+        <!--Если он подходит по роли то открываем форму-->
+         <div sec:authorize="hasAnyRole('ADMIN','SUPERADMIN')">
+            <br/><br/>
+         <div sec:authorize="hasRole('SUPERADMIN')">
+             This content will only be visible to SUPERADMIN user
+             <br/><br/>
+             <a href="/user/new">Create New User</a>
+         </div>
+            <br/><br/>
+            <table border="1" cellpadding="10">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+          <div sec:authorize="hasRole('SUPERADMIN')">
+                    <th>Actions</th>
+          </div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${listUsers}">
+                    <td th:text="${user.username}">Username</td>
+                    <td th:text="${user.password}">Password</td>
+                <div sec:authorize="hasRole('SUPERADMIN')">
+                    <td>
+                        This content will only be visible to SUPERADMIN user
+                        <br/><br/>
+                        <a th:href="@{'/user/edit/' + ${user.username}}">Edit</a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a th:href="@{'/user/delete/' + ${user.username}}">Delete</a>
+                    </td>
+                </div>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                Total Items: [[${totalItems}]]
+                <a th:if="${currentPage > 1}" th:href="@{'/user/page/1'}">First</a>
+                <span th:unless="${currentPage > 1}">First</span>
+                <a th:if="${currentPage > 1}" th:href="@{'/user/page/' + ${currentPage - 1}}">Previous</a>
+                <span th:unless="${currentPage > 1}">Previous</span>
+                <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a th:if="${currentPage != i}" th:href="@{'/usre/page/' + ${i}}">[[${i}]]</a>
+                <span th:unless="${currentPage != i}">[[${i}]]</span>
+                &nbsp&nbsp&nbsp;
+                </span>
+                <a th:if="${currentPage < totalPages}" th:href="@{'/user/page/' + ${currentPage + 1}}">Next</a>
+                <span th:unless="currentPage < totalPages">Next</span>
+                <a th:if="${currentPage < totalPages}" th:href="@{'/user/page/' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+
+        </div>
+    </div>
+<!--        Если пользователь не авторизовался, сообщаем об этом-->
+    <div sec:authorize="isAnonymous()">You are not authentificated  </div>
+
+</div>
+</body>
+</html>

@@ -1,14 +1,38 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>-->
+
+
+<!--</head>-->
+
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Welcome page</h1>-->
+<!--</div>-->
+
+<!--</body>-->
+
+
+<!DOCTYPE HTML>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
-
-
-</head>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
 
 <body>
-<div class="container">
-    <h1>Welcome page</h1>
+<div>
+<!--    <h3>${pageContext.request.userPrincipal.name}</h3>-->
+    <div sec:authorize ="isAnonymous">
+        <h4><a href="/login">Войти</a></h4>
+        <h4><a href="/registration">Зарегистрироваться</a></h4>
+    </div>
+    <div sec:authorize ="isAuthenticated()">
+        <h4><a href="/logout">Выйти</a></h4>
+        <h4><a href="/product/listProducts">Перечень товаров</a></h4>
+    </div>
+    <h4><a href="/admin">Пользователи (только админ)</a></h4>
 </div>
-
 </body>
+</html>
