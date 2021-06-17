@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findAll();
 
+    List<Product> findAll();
     @Override
     <S extends Product> S save(S s);
     Product findProductById(long id);

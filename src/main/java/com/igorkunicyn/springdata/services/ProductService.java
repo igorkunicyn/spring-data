@@ -3,7 +3,7 @@ package com.igorkunicyn.springdata.services;
 import com.igorkunicyn.springdata.entities.Product;
 import com.igorkunicyn.springdata.enums.AddProduct;
 import com.igorkunicyn.springdata.enums.SortProduct;
-import com.igorkunicyn.springdata.models.ProductModelMinAndMaxPrice;
+import com.igorkunicyn.springdata.utils.ProductModelMinAndMaxPrice;
 import com.igorkunicyn.springdata.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
